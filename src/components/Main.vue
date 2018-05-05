@@ -1,21 +1,32 @@
 <template>
 
   <main>
-    <form>
-      <label>Difficulty</label>
-      <select v-model="difficulty">
-        <option value="green">Easy</option>
-        <option value="greenBlue">Beginner</option>
-        <option value="blue">Intermediate</option>
-        <option value="blueBlack">Advanced</option>
-        <option value="dblack">Expert</option>
-      </select>
-      <label>Distance(in miles)</label>
-      <input v-model="distance" type='number' min="1" max="150">
+   
+      <p class="instructions">
+        Enable location throught the browser.<br>
+        Select a preferred difficulty.<br>
+        Select a distance from you.<br>
+        Ride.
+      </p>
+    
+    <form class="input-form">
+      <label>Difficulty
+        <select v-model="difficulty">
+          <option value="green">Easy</option>
+          <option value="greenBlue">Beginner</option>
+          <option value="blue">Intermediate</option>
+          <option value="blueBlack">Advanced</option>
+          <option value="dblack">Expert</option>
+        </select>
+      </label>
+      <label>Distance(in miles)
+        <input v-model="distance" type='number' min="1" max="150">
+      </label>
     <button v-on:click="(e, lat, long, difficulty) => userQuery(e, this.lat, this.long, this.distance, this.difficulty)">Find Trails</button>
     </form>
+
     <div class="trail-display">
-      <TrailCard v-for="trail in trails" v-bind:trail="trail"/>
+      <TrailCard v-for="trail in trails[difficulty]" v-bind:trail="trail"/>
     </div>
   </main>
 </template>
@@ -31,7 +42,13 @@ export default {
   },
   data () {
     return {
-      trails: [],
+        trails: {
+          green: [],
+          greenBlue: [],
+          blue: [],
+          blueBlack: [],
+          dblack: []
+        },
         lat: 0,
         long: 0,
         distance: 50,
@@ -67,8 +84,15 @@ export default {
     async userQuery (e, lat, long, distance, difficulty) {
       e.preventDefault();
       console.log(difficulty)
-      const trails = await getTrails(lat, long, distance);
-      this.trails = cleanTrails(trails.trails, difficulty); 
+      if (this.trails[difficulty].length === 0) {
+        const trails = await getTrails(lat, long, distance);
+        const trailsArray = cleanTrails(trails.trails, difficulty);
+        this.trails.green = trailsArray.easy;
+        this.trails.greenBlue = trailsArray.beginner;
+        this.trails.blue = trailsArray.intermediate;
+        this.trails.blueBlack = trailsArray.advanced;
+        this.trails.dblack = trailsArray.expert;
+      }
     },
   }
 }
@@ -79,6 +103,19 @@ export default {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+  }
+
+  .instructions {
+    text-align: left;
+    display:inline-block;
+  }
+
+  .input-form {
+    display: inline-block;
+  }
+
+  input, select, label {
+    display: block;
   }
 </style>
 
