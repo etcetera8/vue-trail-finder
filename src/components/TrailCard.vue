@@ -1,10 +1,10 @@
 <template>
   <div class="card">
-    <img :src="trail.imgSmallMed" alt="image here" />
-    <h1>{{trail.name}}</h1>
-    <span>{{trail.difficulty}}</span>
-    <span>{{trail.stars}}</span>
-    <p>{{trail.summary}}</p>
+    <img class="trail-image" :src="trail.imgSmallMed" alt="image here" />
+    <h1 class="name">{{trail.name}}</h1>
+    <span class="difficulty">{{trail.difficulty}}</span>
+    <span class="stars">{{trail.stars}}</span>
+    <p class="summary">{{trail.summary}}</p>
   </div>
 </template>
 
@@ -18,7 +18,33 @@ export default {
   .card {
     border: 1px solid gray;
     min-width: 150px;
-    max-width: 250px;
+    max-width: 350px;
+  }
+
+  .trail-image {
+    max-width: 350px;
+    min-width: 150px;
+  }
+
+  .name {
+    margin: 10px;
+  }
+
+  .difficulty {
+    float: left;
+    margin-left: 10px;
+  }
+
+  .stars {
+    float: right;
+    margin-right: 10px;
+  }
+
+  .summary {
+    text-align: left;
+    margin: 10px;
+    margin-top: 40px;
+    color: black;
   }
 </style>
 
