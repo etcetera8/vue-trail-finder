@@ -14,7 +14,7 @@
       <input type='number' min="1" max="150">
     </form>
     <div class="trail-display">
-      <TrailCard v-for="trail in trails"/>
+      <TrailCard v-for="trail in trails" v-bind:trail="trail"/>
     </div>
   </main>
 </template>
@@ -30,7 +30,7 @@ export default {
   },
   data () {
     return {
-      trails: [1],
+      trails: [],
       lat: 0,
       long: 0,
       error: false
@@ -71,6 +71,7 @@ export default {
   .trail-display {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
     border: 1px solid black;
   }
 </style>

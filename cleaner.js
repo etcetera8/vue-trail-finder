@@ -1,6 +1,6 @@
 export const cleanTrails = (array) => {
   return array.map(trail => {
-    const { id, name, summary, difficulty, stars, location, url, imgMedium, length, ascent, latitude, longitude} = trail;
+    const { id, name, summary, difficulty, stars, location, url, imgSmallMed, length, ascent, latitude, longitude} = trail;
     return {
       id,
       name,
@@ -9,7 +9,7 @@ export const cleanTrails = (array) => {
       stars,
       location,
       url,
-      imgMedium,
+      imgSmallMed,
       length,
       ascent,
       latitude,
