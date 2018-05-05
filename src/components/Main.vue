@@ -11,7 +11,8 @@
         <option>Expert</option>
       </select>
       <label>Distance(in miles)</label>
-      <input type='number' min="1" max="150">
+      <input v-model="distance" type='number' min="1" max="150">
+    <button v-on:click="(e, lat, long) => userQuery(e, this.lat, this.long, this.distance)">Find Trails</button>
     </form>
     <div class="trail-display">
       <TrailCard v-for="trail in trails" v-bind:trail="trail"/>
@@ -30,21 +31,10 @@ export default {
   },
   data () {
     return {
-      trails: [{
-        ascent:2704,
-        difficulty:"blue",
-        id:845269,
-        imgSmallMed:"https://cdn-files.apstatic.com/mtb/7013659_smallMed_1474417646.jpg",
-        latitude:39.3868,
-        length:23.6,
-        location:"Pine, Colorado",
-        longitude:-105.2747,
-        name:"Buffalo Creek Big Loop - IMBA EPIC",
-        stars:4.6,
-        summary:"A nice tour of some of the best of Buffalo Creek - mostly smooth singletrack with some climbing.",
-        url:"https://www.mtbproject.com/trail/845269/buffalo-creek-big-loop-imba-epic"}],
+      trails: [],
         lat: 0,
         long: 0,
+        distance: 50,
         error: false
       }
   },
@@ -58,11 +48,12 @@ export default {
       let lat = 0;
       let long = 0;
 
-      const success = async (position) => {
+      const success = (position) => {
         lat = position.coords.latitude;
         long = position.coords.longitude;
-        //const trails = await getTrails(lat, long, 50);
-        //this.trails = cleanTrails(trails.trails);        
+        console.log(lat, this.lat)
+        this.lat = lat;
+        this.long = long;       
       }
 
       const error = () => {
@@ -72,8 +63,12 @@ export default {
       navigator.geolocation.getCurrentPosition(success, error)
     },
 
-    userQuery () {
+    async userQuery (e, lat, long, distance) {
+      e.preventDefault();
       console.log('im the user query')
+      console.log(e, lat, long, distance)
+      const trails = await getTrails(lat, long, distance);
+      this.trails = cleanTrails(trails.trails); 
     },
   }
 }
