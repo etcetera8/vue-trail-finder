@@ -17,33 +17,44 @@
 </template>
 
 <script>
+import { getTrails } from '../../api';
+
 export default {
-  name: 'Main',
-  data: () => ({
-    difficulty: 'beginner',
-    distance: 25
-  }),
-  
-  created: () => {
-    let lat = 0;
-    let long = 0;
-
-    const success = (position) => {
-      lat = position.coords.latitude;
-      long = position.coords.longitude;
-      console.log(lat, long)
+  data () {
+    return {
+      trails: [],
+      lat: 0,
+      long: 0,
+      error: false
     }
-
-    const error = () => {
-      console.log('location error');
-    }
-    let coords = navigator.geolocation.getCurrentPosition(success, error)
-    console.log(coords)
   },
+
+  created () {
+    this.getLocation()
+  },
+
   methods: {
-    userQuery: () => {
+    getLocation () {
+      let lat = 0;
+      let long = 0;
+
+      const success = async (position) => {
+        lat = position.coords.latitude;
+        long = position.coords.longitude;
+        const trails = await getTrails(lat, long, 50);
+        this.trails = trails.trails;        
+      }
+
+      const error = () => {
+        console.log('location error');
+      }
+      
+      navigator.geolocation.getCurrentPosition(success, error)
+    },
+
+    userQuery () {
       console.log('im the user query')
-    }
+    },
   }
 }
 </script>
