@@ -1,6 +1,6 @@
 <template>
-  <main>
 
+  <main>
     <form>
       <label>Difficulty</label>
       <select>
@@ -13,16 +13,24 @@
       <label>Distance(in miles)</label>
       <input type='number' min="1" max="150">
     </form>
+    <div class="trail-display">
+      <TrailCard v-for="trail in trails"/>
+    </div>
   </main>
 </template>
 
 <script>
 import { getTrails } from '../../api';
+import { cleanTrails } from '../../cleaner';
 
+import TrailCard from './TrailCard';
 export default {
+  components : {
+    'TrailCard': TrailCard
+  },
   data () {
     return {
-      trails: [],
+      trails: [1],
       lat: 0,
       long: 0,
       error: false
@@ -42,7 +50,7 @@ export default {
         lat = position.coords.latitude;
         long = position.coords.longitude;
         const trails = await getTrails(lat, long, 50);
-        this.trails = trails.trails;        
+        this.trails = cleanTrails(trails.trails);        
       }
 
       const error = () => {
@@ -60,7 +68,11 @@ export default {
 </script>
 
 <style>
-
+  .trail-display {
+    display: flex;
+    justify-content: space-around;
+    border: 1px solid black;
+  }
 </style>
 
 
