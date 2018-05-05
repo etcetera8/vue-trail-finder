@@ -19,6 +19,7 @@ export default {
     border: 1px solid gray;
     min-width: 150px;
     max-width: 350px;
+    margin: 10px;
   }
 
   .trail-image {

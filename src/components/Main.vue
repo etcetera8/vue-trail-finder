@@ -3,16 +3,16 @@
   <main>
     <form>
       <label>Difficulty</label>
-      <select>
-        <option>Easy</option>
-        <option>Beginner</option>
-        <option>Intermediate</option>
-        <option>Advanced</option>
-        <option>Expert</option>
+      <select v-model="difficulty">
+        <option value="green">Easy</option>
+        <option value="greenBlue">Beginner</option>
+        <option value="blue">Intermediate</option>
+        <option value="blueBlack">Advanced</option>
+        <option value="dblack">Expert</option>
       </select>
       <label>Distance(in miles)</label>
       <input v-model="distance" type='number' min="1" max="150">
-    <button v-on:click="(e, lat, long) => userQuery(e, this.lat, this.long, this.distance)">Find Trails</button>
+    <button v-on:click="(e, lat, long, difficulty) => userQuery(e, this.lat, this.long, this.distance, this.difficulty)">Find Trails</button>
     </form>
     <div class="trail-display">
       <TrailCard v-for="trail in trails" v-bind:trail="trail"/>
@@ -35,6 +35,7 @@ export default {
         lat: 0,
         long: 0,
         distance: 50,
+        difficulty: 'blue',
         error: false
       }
   },
@@ -63,12 +64,11 @@ export default {
       navigator.geolocation.getCurrentPosition(success, error)
     },
 
-    async userQuery (e, lat, long, distance) {
+    async userQuery (e, lat, long, distance, difficulty) {
       e.preventDefault();
-      console.log('im the user query')
-      console.log(e, lat, long, distance)
+      console.log(difficulty)
       const trails = await getTrails(lat, long, distance);
-      this.trails = cleanTrails(trails.trails); 
+      this.trails = cleanTrails(trails.trails, difficulty); 
     },
   }
 }
@@ -79,7 +79,6 @@ export default {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    border: 1px solid black;
   }
 </style>
 
