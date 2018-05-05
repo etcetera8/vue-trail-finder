@@ -22,7 +22,29 @@ export default {
   data: () => ({
     difficulty: 'beginner',
     distance: 25
-  })
+  }),
+  
+  created: () => {
+    let lat = 0;
+    let long = 0;
+
+    const success = (position) => {
+      lat = position.coords.latitude;
+      long = position.coords.longitude;
+      console.log(lat, long)
+    }
+
+    const error = () => {
+      console.log('location error');
+    }
+    let coords = navigator.geolocation.getCurrentPosition(success, error)
+    console.log(coords)
+  },
+  methods: {
+    userQuery: () => {
+      console.log('im the user query')
+    }
+  }
 }
 </script>
 
