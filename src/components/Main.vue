@@ -87,8 +87,9 @@ export default {
 
     async userQuery (e, lat, long, distance, difficulty) {
       e.preventDefault();
-      console.log(difficulty)
-      if (this.trails[difficulty].length === 0) {
+      console.log(distance)
+      console.log(this);
+      if (this.trails[difficulty].length === 0 || typeof(distance) === "string") {
         const trails = await getTrails(lat, long, distance);
         const trailsArray = cleanTrails(trails.trails, difficulty);
         this.trails.green = trailsArray.easy;
