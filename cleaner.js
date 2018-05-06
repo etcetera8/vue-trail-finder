@@ -13,7 +13,7 @@ export const cleanTrails = (array, diff) => {
       length,
       ascent,
       latitude,
-      longitude
+      longitude,
     }
   })
 

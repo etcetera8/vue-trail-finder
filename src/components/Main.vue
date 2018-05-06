@@ -26,7 +26,7 @@
     </form>
 
     <div class="trail-display">
-      <TrailCard v-for="trail in trails[difficulty]" v-bind:trail="trail"/>
+      <TrailCard v-for="trail in trails[difficulty]" v-bind:trail="trail" v-bind:lat="lat" v-bind:long="long"/>
     </div>
   </main>
 </template>

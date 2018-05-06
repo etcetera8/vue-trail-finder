@@ -5,12 +5,19 @@
     <span class="difficulty">{{trail.difficulty}}</span>
     <span class="stars">{{trail.stars}}</span>
     <p class="summary">{{trail.summary}}</p>
+    <a class="directions" :href="url + lat + ',' + long + '&destination='+ trail.latitude + ',' + trail.longitude">
+      Driving Directions</a>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['trail'],
+  props: ['trail', 'lat', 'long'],
+  data () {
+    return {
+      url: "https://www.google.com/maps/dir/?api=1&origin="
+    }
+  }
 }
 </script>
 
