@@ -2,8 +2,10 @@
   <div class="card">
     <img class="trail-image" :src="trail.imgSmallMed" alt="image here" />
     <h1 class="name">{{trail.name}}</h1>
-    <span class="difficulty">{{trail.difficulty}}</span>
-    <span class="stars">{{trail.stars}}</span>
+    <div class="rating-wrapper">
+      <span class="difficulty">{{trail.difficulty}}</span>
+      <span class="stars">{{trail.stars}}</span>
+    </div>
     <p class="summary">{{trail.summary}}</p>
     <a class="directions" :href="url + lat + ',' + long + '&destination='+ trail.latitude + ',' + trail.longitude">
       Driving Directions</a>
@@ -23,9 +25,13 @@ export default {
 
 <style>
   .card {
+    display: flex;
+    flex-direction: column;
     border: 1px solid gray;
     min-width: 150px;
     max-width: 330px;
+    min-height: 450px;
+    max-height: 500px;
     margin: 10px;
   }
 
@@ -40,21 +46,25 @@ export default {
     text-align: left;
   }
 
+  .rating-wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .difficulty {
-    float: left;
     margin-left: 10px;
   }
 
   .stars {
-    float: right;
     margin-right: 10px;
   }
 
   .summary {
     text-align: left;
     margin: 10px;
-    margin-top: 40px;
+    margin-top: 10px;
     color: black;
+    flex-grow: 1;
   }
 
   .directions {
@@ -62,8 +72,8 @@ export default {
     text-decoration: none;
     color: green;
     font-weight: 600;
-    float: left;
     margin-left: 10px;
+    margin-bottom: 10px;
   }
 </style>
 
