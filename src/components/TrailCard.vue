@@ -25,17 +25,19 @@ export default {
   .card {
     border: 1px solid gray;
     min-width: 150px;
-    max-width: 350px;
+    max-width: 330px;
     margin: 10px;
   }
 
   .trail-image {
-    max-width: 350px;
+    max-width: 330px;
     min-width: 150px;
+    max-height: 250px;
   }
 
   .name {
     margin: 10px;
+    text-align: left;
   }
 
   .difficulty {
@@ -53,6 +55,15 @@ export default {
     margin: 10px;
     margin-top: 40px;
     color: black;
+  }
+
+  .directions {
+    text-align: left;
+    text-decoration: none;
+    color: green;
+    font-weight: 600;
+    float: left;
+    margin-left: 10px;
   }
 </style>
 
