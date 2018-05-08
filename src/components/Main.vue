@@ -27,8 +27,12 @@
       </div>
     <button v-on:click="(e, lat, long, difficulty) => userQuery(e, this.lat, this.long, this.distance, this.difficulty)">Find Trails</button>
     </form>
-  </main>
 
+  </main>
+  <form class="input-form-city">
+    <input type="text" v-model="city" placeholder="search by city"/>
+    <button v-on:click="(e)=>searchCity(e)" type="submit">Search</button>
+  </form>
     <div class="trail-display">
       <TrailCard v-for="trail in trails[difficulty]" v-bind:trail="trail" v-bind:lat="lat" v-bind:long="long"/>
     </div>
@@ -38,11 +42,12 @@
 <script>
 import { getTrails } from '../../api';
 import { cleanTrails } from '../../cleaner';
-
+import SearchCity from './SearchCity';
 import TrailCard from './TrailCard';
 export default {
   components : {
-    'TrailCard': TrailCard
+    'TrailCard': TrailCard,
+    'SearchCity': SearchCity
   },
   data () {
     return {
@@ -57,11 +62,13 @@ export default {
         long: 0,
         distance: 50,
         difficulty: 'blue',
-        error: false
+        error: false,
+        city: '',
+        clicked: true
       }
   },
 
-  created () {
+  created() {
     this.getLocation()
   },
 
@@ -73,7 +80,6 @@ export default {
       const success = (position) => {
         lat = position.coords.latitude;
         long = position.coords.longitude;
-        console.log(lat, this.lat)
         this.lat = lat;
         this.long = long;       
       }
@@ -87,8 +93,6 @@ export default {
 
     async userQuery (e, lat, long, distance, difficulty) {
       e.preventDefault();
-      console.log(distance)
-      console.log(this);
       if (this.trails[difficulty].length === 0 || typeof(distance) === "string") {
         const trails = await getTrails(lat, long, distance);
         const trailsArray = cleanTrails(trails.trails, difficulty);
@@ -99,6 +103,16 @@ export default {
         this.trails.dblack = trailsArray.expert;
       }
     },
+
+    searchCity(e){
+      e.preventDefault();
+      console.log(this.city)
+    },
+
+    showInput() {
+      return <input v-model="city" type="text" placeholder="search cities" />
+
+    }
   }
 }
 </script>

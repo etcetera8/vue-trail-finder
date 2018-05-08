@@ -30,7 +30,7 @@ export default {
     border: 1px solid gray;
     min-width: 150px;
     max-width: 330px;
-    min-height: 450px;
+    min-height: 450px;  
     max-height: 500px;
     margin: 10px;
   }
