@@ -3,7 +3,7 @@
     <img class="trail-image" :src="trail.imgSmallMed" alt="image here" />
     <h1 class="name">{{trail.name}}</h1>
     <div class="rating-wrapper">
-      <span class="difficulty">{{trail.difficulty}}</span>
+      <span class="difficulty"><img :src="renderBlaze(trail.difficulty)"></span>
       <span class="stars">{{trail.stars}}</span>
     </div>
     <p class="summary">{{trail.summary}}</p>
@@ -13,13 +13,40 @@
 </template>
 
 <script>
+import green from '../../static/green.svg';
+import blueGreen from '../../static/blueGreen.svg';
+import blue from '../../static/blue.svg';
+import blueBlk from '../../static/blueBlk.svg'
+;import black from '../../static/black.svg';
+import dblBlk from '../../static/dblBlk.svg';
+
 export default {
   props: ['trail', 'lat', 'long'],
   data () {
     return {
-      url: "https://www.google.com/maps/dir/?api=1&origin="
+      url: "https://www.google.com/maps/dir/?api=1&origin=",
+      renderBlaze(diff) {
+        switch (diff) {
+          case "green":
+            return green
+            break;
+          case "greenBlue":
+            return blueGreen
+            break;
+          case "blue":
+            return blue
+            break;
+          case "blueBlack":
+            return blueBlk
+            break;
+          case "dblack":
+            return dblBlk
+            break;
+
+        }
+      }
     }
-  }
+}
 }
 </script>
 

@@ -29,10 +29,7 @@
     </form>
 
   </main>
-  <form class="input-form-city">
-    <input type="text" v-model="city" placeholder="search by city"/>
-    <button v-on:click="(e)=>searchCity(e)" type="submit">Search</button>
-  </form>
+
     <div class="trail-display">
       <TrailCard v-for="trail in trails[difficulty]" v-bind:trail="trail" v-bind:lat="lat" v-bind:long="long"/>
     </div>
@@ -149,6 +146,7 @@ export default {
     display: block;
     margin-bottom: 10px;
   }
+  
 </style>
 
 
