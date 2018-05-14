@@ -1,13 +1,11 @@
 <template>
 <section>
   <main>
-      <p class="instructions">
-        Enable location through the browser.<br>
-        Select a preferred difficulty.<br>
-        Select a distance from you.<br>
-        <strong>Ride.</strong>
-      </p>
-    
+    <p class="instructions">
+      Enable location through the browser.<br><br>
+      Select a preferred difficulty and distance.<br><br>
+      <strong>Ride.</strong>
+    </p>
     <form class="input-form">
       <div class="wrapper">
         <label>Difficulty
@@ -114,7 +112,6 @@ export default {
 </script>
 
 <style>
-
   main {
     display: flex;
     justify-content: center;
@@ -144,6 +141,27 @@ export default {
   .wrapper {
     display: block;
     margin-bottom: 10px;
+  }
+
+  @media screen and (max-width: 550px ) {
+    main {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .instructions {
+      text-align: center;
+    }
+
+    .input-form {
+      text-align: center;
+      margin: 25px 0;
+    }
+
+    .wrapper {
+      margin: 20px 0;
+    }
   }
   
 </style>
