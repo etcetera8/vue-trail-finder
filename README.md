@@ -2,6 +2,8 @@
 
 > Find mountain bike trails close to you based on your skill level
 
+> I built this app to practice using asynchronus JS with Vue as I hadn't mixed the two yet. Turns out Vue is awesome for this as well. 
+
 ## Build Setup
 
 ``` bash
