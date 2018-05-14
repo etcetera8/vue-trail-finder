@@ -5,7 +5,7 @@
         Enable location through the browser.<br>
         Select a preferred difficulty.<br>
         Select a distance from you.<br>
-        Ride.
+        <strong>Ride.</strong>
       </p>
     
     <form class="input-form">
@@ -108,7 +108,6 @@ export default {
 
     showInput() {
       return <input v-model="city" type="text" placeholder="search cities" />
-
     }
   }
 }
